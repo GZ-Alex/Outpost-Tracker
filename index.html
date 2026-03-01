@@ -20,6 +20,10 @@
 
   body {
     background: var(--bg);
+    background-image: url('ZHintergrundMain.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: var(--text);
     font-family: 'Exo 2', sans-serif;
     min-height: 100vh;
@@ -465,6 +469,7 @@
   function checkPassword() {
     const val = document.getElementById('pwInput').value;
     if (val === PASSWORD) {
+      sessionStorage.setItem('alliance_auth', '1');
       document.getElementById('passwordScreen').style.display = 'none';
       document.getElementById('hubContent').style.display = 'block';
       initStars();
@@ -478,6 +483,13 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    // Already authenticated this session? Skip password screen
+    if (sessionStorage.getItem('alliance_auth') === '1') {
+      document.getElementById('passwordScreen').style.display = 'none';
+      document.getElementById('hubContent').style.display = 'block';
+      initStars();
+      return;
+    }
     document.getElementById('pwInput').focus();
     document.getElementById('pwInput').addEventListener('keydown', e => {
       if (e.key === 'Enter') checkPassword();
