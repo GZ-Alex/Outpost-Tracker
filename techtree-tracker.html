@@ -8,402 +8,196 @@
   @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Exo+2:wght@300;400;500;600&display=swap');
 
   :root {
-    --bg:          #060a12;
-    --bg2:         #0c1220;
-    --bg3:         #111927;
-    --border:      #1e3050;
-    --accent:      #00d4ff;
-    --accent2:     #0088cc;
-    --text:        #c8dff0;
-    --text-dim:    #5a7a9a;
-    --warlord:     #ff4444;
-    --trader:      #44ff88;
-    --freelancer:  #4488ff;
-    --gold:        #ffd700;
-    --psych:       #a855f7;
-    --info:        #3b82f6;
-    --politik:     #ef4444;
-    --natur:       #22c55e;
-    --historik:    #f59e0b;
-    --mathe:       #06b6d4;
-    --technik:     #f97316;
+    --bg:         #060a12;
+    --bg2:        #0c1220;
+    --bg3:        #111927;
+    --border:     #1e3050;
+    --accent:     #00d4ff;
+    --accent2:    #0088cc;
+    --text:       #c8dff0;
+    --text-dim:   #5a7a9a;
+    --warlord:    #ff4444;
+    --trader:     #44ff88;
+    --freelancer: #4488ff;
+    --rasse:      #ffd700;
+    --node-color: #00d4ff;  /* all branch nodes same color */
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Exo 2', sans-serif;
-    min-height: 100vh;
-  }
-
+  body { background:var(--bg); color:var(--text); font-family:'Exo 2',sans-serif; min-height:100vh; }
   body::before {
-    content:'';
-    position:fixed; inset:0;
-    background-image:
-      linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events:none; z-index:0;
+    content:''; position:fixed; inset:0;
+    background-image: linear-gradient(rgba(0,212,255,0.025) 1px,transparent 1px), linear-gradient(90deg,rgba(0,212,255,0.025) 1px,transparent 1px);
+    background-size:40px 40px; pointer-events:none; z-index:0;
   }
 
-  /* ── HEADER ── */
+  /* HEADER */
   header {
     position:sticky; top:0; z-index:100;
-    padding: 14px 24px;
-    display:flex; align-items:center; justify-content:space-between; gap:16px;
-    border-bottom: 1px solid var(--border);
-    background: rgba(6,10,18,0.96);
-    backdrop-filter: blur(8px);
+    padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px;
+    border-bottom:1px solid var(--border); background:rgba(6,10,18,0.96); backdrop-filter:blur(8px);
   }
-
-  .logo {
-    font-family:'Orbitron',monospace;
-    font-size:1.1rem; font-weight:800;
-    color:var(--accent);
-    text-shadow: 0 0 16px rgba(0,212,255,0.4);
-    letter-spacing:3px; white-space:nowrap;
-  }
+  .logo { font-family:'Orbitron',monospace; font-size:1.1rem; font-weight:800; color:var(--accent); text-shadow:0 0 16px rgba(0,212,255,0.4); letter-spacing:3px; white-space:nowrap; }
   .logo span { color:var(--text-dim); font-weight:400; }
-
   .header-right { display:flex; align-items:center; gap:10px; }
-
-  .back-btn {
-    font-family:'Orbitron',monospace; font-size:0.65rem; font-weight:600;
-    letter-spacing:1.5px; color:var(--text-dim);
-    border:1px solid var(--border); background:transparent;
-    padding:7px 14px; cursor:pointer; text-decoration:none;
-    transition:all 0.2s;
-  }
+  .back-btn { font-family:'Orbitron',monospace; font-size:0.65rem; font-weight:600; letter-spacing:1.5px; color:var(--text-dim); border:1px solid var(--border); background:transparent; padding:7px 14px; cursor:pointer; text-decoration:none; transition:all 0.2s; }
   .back-btn:hover { color:var(--accent); border-color:var(--accent2); }
 
-  /* ── TABS ── */
-  .tabs {
-    display:flex; gap:2px; padding:14px 24px 0;
-    border-bottom:1px solid var(--border);
-    position:relative; z-index:5;
-    background:var(--bg);
-  }
-  .tab {
-    padding:8px 20px;
-    font-family:'Orbitron',monospace; font-size:0.65rem; font-weight:600;
-    letter-spacing:1.5px; cursor:pointer; border:1px solid transparent;
-    border-bottom:none; background:transparent; color:var(--text-dim);
-    transition:all 0.18s; text-transform:uppercase;
-  }
+  /* TABS */
+  .tabs { display:flex; gap:2px; padding:14px 24px 0; border-bottom:1px solid var(--border); position:relative; z-index:5; background:var(--bg); }
+  .tab { padding:8px 20px; font-family:'Orbitron',monospace; font-size:0.65rem; font-weight:600; letter-spacing:1.5px; cursor:pointer; border:1px solid transparent; border-bottom:none; background:transparent; color:var(--text-dim); transition:all 0.18s; text-transform:uppercase; }
   .tab:hover { color:var(--accent); border-color:var(--border); }
   .tab.active { background:var(--bg2); color:var(--accent); border-color:var(--border); box-shadow:0 -2px 0 var(--accent); }
-
   .view { display:none; }
   .view.active { display:block; }
 
-  /* ── STATS BAR ── */
-  .stats {
-    display:flex; gap:0;
-    border-bottom:1px solid var(--border);
-    position:relative; z-index:5;
-    background:var(--bg);
-  }
-  .stat {
-    flex:1; padding:10px 18px;
-    border-right:1px solid var(--border);
-  }
+  /* STATS */
+  .stats { display:flex; border-bottom:1px solid var(--border); position:relative; z-index:5; background:var(--bg); }
+  .stat { flex:1; padding:10px 18px; border-right:1px solid var(--border); }
   .stat:last-child { border-right:none; }
   .stat-num { font-family:'Orbitron',monospace; font-size:1.2rem; font-weight:800; line-height:1; }
   .stat-lbl { font-size:0.68rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px; margin-top:2px; }
 
-  /* ── TOOLBAR ── */
-  .toolbar {
-    position:sticky; top:57px; z-index:90;
-    padding:10px 24px;
-    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-    border-bottom:1px solid var(--border);
-    background:rgba(6,10,18,0.94);
-    backdrop-filter:blur(6px);
-  }
-
+  /* TOOLBAR */
+  .toolbar { position:sticky; top:57px; z-index:90; padding:10px 24px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; border-bottom:1px solid var(--border); background:rgba(6,10,18,0.94); backdrop-filter:blur(6px); }
   .branch-pills { display:flex; gap:6px; flex-wrap:wrap; flex:1; }
-
-  .pill {
-    padding:5px 13px;
-    font-family:'Orbitron',monospace; font-size:0.58rem; font-weight:600;
-    letter-spacing:1.5px; text-transform:uppercase;
-    cursor:pointer; border:1px solid;
-    background:transparent; transition:all 0.18s; white-space:nowrap;
-  }
-  .pill:hover { opacity:0.8; }
-  .pill.active { background:rgba(255,255,255,0.07); }
-  /* All pills same neutral color — active one pops */
-  .pill { border-color:var(--border); color:var(--text-dim); }
+  .pill { padding:5px 13px; font-family:'Orbitron',monospace; font-size:0.58rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; border:1px solid var(--border); color:var(--text-dim); background:transparent; transition:all 0.18s; white-space:nowrap; }
+  .pill:hover { border-color:var(--accent2); color:var(--text); }
   .pill.active { border-color:var(--accent); color:var(--accent); background:rgba(0,212,255,0.1); box-shadow:0 0 10px rgba(0,212,255,0.15); }
-  .pill:hover  { border-color:var(--accent2); color:var(--text); }
-
   .search-wrap { position:relative; }
-  .search-wrap input {
-    background:var(--bg2); border:1px solid var(--border);
-    color:var(--text); font-family:'Exo 2',sans-serif; font-size:0.85rem;
-    padding:6px 12px 6px 30px; outline:none; width:190px;
-    transition:border-color 0.2s;
-  }
+  .search-wrap input { background:var(--bg2); border:1px solid var(--border); color:var(--text); font-family:'Exo 2',sans-serif; font-size:0.85rem; padding:6px 12px 6px 30px; outline:none; width:190px; transition:border-color 0.2s; }
   .search-wrap input:focus { border-color:var(--accent2); }
   .search-icon { position:absolute; left:9px; top:50%; transform:translateY(-50%); font-size:0.8rem; color:var(--text-dim); pointer-events:none; }
 
-  .btn {
-    padding:7px 15px;
-    font-family:'Orbitron',monospace; font-size:0.6rem; font-weight:600;
-    letter-spacing:1.5px; text-transform:uppercase;
-    cursor:pointer; border:1px solid var(--accent2);
-    background:rgba(0,212,255,0.07); color:var(--accent);
-    transition:all 0.2s; white-space:nowrap;
-  }
+  /* BUTTONS */
+  .btn { padding:7px 15px; font-family:'Orbitron',monospace; font-size:0.6rem; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; border:1px solid var(--accent2); background:rgba(0,212,255,0.07); color:var(--accent); transition:all 0.2s; white-space:nowrap; }
   .btn:hover { background:rgba(0,212,255,0.16); box-shadow:0 0 12px rgba(0,212,255,0.2); }
   .btn.toggled { background:rgba(0,212,255,0.18); border-color:var(--accent); }
   .btn-danger { border-color:#ff4444; color:#ff4444; background:rgba(255,68,68,0.07); }
+  .btn-danger:hover { background:rgba(255,68,68,0.15); }
+  .btn-warn { border-color:#ffaa00; color:#ffaa00; background:rgba(255,170,0,0.07); }
+  .btn-warn:hover { background:rgba(255,170,0,0.15); }
+  .btn-sm { padding:4px 10px; font-size:0.55rem; }
 
-  /* ── MAIN ── */
+  /* TREE */
   .main { position:relative; z-index:5; padding:16px 24px; }
-
-  /* ── BRANCH SECTION ── */
   .branch-section { margin-bottom:8px; }
-
-  .branch-header {
-    display:flex; align-items:center; gap:10px;
-    padding:9px 14px; cursor:pointer;
-    border:1px solid; border-left-width:4px;
-    background:var(--bg2); margin-bottom:3px;
-    user-select:none; transition:background 0.15s;
-  }
+  .branch-header { display:flex; align-items:center; gap:10px; padding:9px 14px; cursor:pointer; border:1px solid var(--accent); border-left-width:4px; background:var(--bg2); margin-bottom:3px; user-select:none; transition:background 0.15s; color:var(--accent); }
   .branch-header:hover { background:var(--bg3); }
-
   .chevron { font-size:0.65rem; transition:transform 0.2s; color:var(--text-dim); flex-shrink:0; }
-  .collapsed > .chevron, .branch-header.collapsed .chevron { transform:rotate(-90deg); }
-
-  .branch-name {
-    font-family:'Orbitron',monospace; font-size:0.82rem; font-weight:800;
-    letter-spacing:2px; text-transform:uppercase;
-  }
+  .branch-header.collapsed .chevron { transform:rotate(-90deg); }
+  .branch-name { font-family:'Orbitron',monospace; font-size:0.82rem; font-weight:800; letter-spacing:2px; text-transform:uppercase; }
   .branch-count { font-size:0.65rem; color:var(--text-dim); margin-left:auto; font-family:'Orbitron',monospace; }
-
-  .branch-body { }
   .branch-body.collapsed { display:none; }
-
-  /* ── TECH NODE ── */
   .tech-node { display:flex; flex-direction:column; }
-
   .tech-row { display:flex; align-items:stretch; }
+  .tech-rail { flex-shrink:0; display:flex; }
+  .rail-segment { width:28px; position:relative; flex-shrink:0; }
+  .rail-segment .vl { position:absolute; left:13px; top:0; bottom:0; width:1px; background:var(--lc,rgba(0,212,255,0.25)); }
+  .rail-segment.last .vl { bottom:calc(100% - 20px); }
+  .rail-segment.last .hl { position:absolute; left:13px; top:19px; width:15px; height:1px; background:var(--lc,rgba(0,212,255,0.25)); }
 
-  /* Left rail: indent lines */
-  .tech-rail {
-    flex-shrink:0;
-    display:flex;
-  }
-
-  .rail-segment {
-    width:28px;
-    position:relative;
-    flex-shrink:0;
-  }
-
-  /* vertical line through entire segment */
-  .rail-segment .vl {
-    position:absolute;
-    left:13px; top:0; bottom:0;
-    width:1px;
-    background:var(--lc, #1e305080);
-  }
-
-  /* last segment: vl only goes halfway down (to the connector) */
-  .rail-segment.last .vl {
-    bottom:calc(100% - 20px);
-  }
-
-  /* horizontal connector from vl to card */
-  .rail-segment.last .hl {
-    position:absolute;
-    left:13px; top:19px;
-    width:15px; height:1px;
-    background:var(--lc, #1e305080);
-  }
-
-  /* ── TECH CARD ── */
-  .tech-card {
-    flex:1; min-width:0;
-    border:1px solid var(--cb, #1e3050);
-    border-left:3px solid var(--ca, #00d4ff);
-    background:var(--bg2);
-    margin:2px 0;
-    position:relative;
-    transition:background 0.15s;
-  }
+  /* TECH CARD — color controlled by --ca (class/rasse override, else node-color) */
+  .tech-card { flex:1; min-width:0; border:1px solid var(--cb,rgba(0,212,255,0.2)); border-left:3px solid var(--ca,var(--node-color)); background:var(--bg2); margin:2px 0; position:relative; transition:background 0.15s; }
   .tech-card:hover { background:var(--bg3); }
-
-  /* glow on accent border */
-  .tech-card::after {
-    content:'';
-    position:absolute; left:-3px; top:0; bottom:0; width:3px;
-    box-shadow:0 0 8px var(--ca, #00d4ff);
-    opacity:0.5;
-  }
-
-  /* ── CARD HEADER ── */
-  .card-hdr {
-    display:flex; align-items:center; gap:8px;
-    padding:7px 12px; cursor:pointer; user-select:none;
-  }
-
+  .tech-card::after { content:''; position:absolute; left:-3px; top:0; bottom:0; width:3px; box-shadow:0 0 8px var(--ca,var(--node-color)); opacity:0.5; }
+  .card-hdr { display:flex; align-items:center; gap:8px; padding:7px 12px; cursor:pointer; user-select:none; }
   .card-chevron { font-size:0.6rem; color:var(--text-dim); transition:transform 0.18s; flex-shrink:0; }
   .tech-card.collapsed .card-chevron { transform:rotate(-90deg); }
   .no-details .card-chevron { visibility:hidden; }
-
-  .card-name {
-    font-family:'Orbitron',monospace; font-size:0.72rem; font-weight:700;
-    letter-spacing:1px; color:var(--ca, #00d4ff); white-space:nowrap;
-  }
-
+  .card-name { font-family:'Orbitron',monospace; font-size:0.72rem; font-weight:700; letter-spacing:1px; color:var(--ca,var(--node-color)); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:300px; }
   .card-tags { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
-
-  .class-tag {
-    font-family:'Orbitron',monospace; font-size:0.52rem; font-weight:700;
-    letter-spacing:1px; padding:1px 6px; border:1px solid; text-transform:uppercase;
-  }
+  .class-tag { font-family:'Orbitron',monospace; font-size:0.52rem; font-weight:700; letter-spacing:1px; padding:1px 6px; border:1px solid; text-transform:uppercase; }
   .class-tag.warlord    { color:var(--warlord);    border-color:var(--warlord);    background:rgba(255,68,68,0.1); }
   .class-tag.trader     { color:var(--trader);     border-color:var(--trader);     background:rgba(68,255,136,0.1); }
   .class-tag.freelancer { color:var(--freelancer); border-color:var(--freelancer); background:rgba(68,136,255,0.1); }
-
+  .class-tag.rasse      { color:var(--rasse);      border-color:var(--rasse);      background:rgba(255,215,0,0.1); }
   .found-tag { font-size:0.66rem; color:var(--text-dim); }
-
   .card-badges { margin-left:auto; display:flex; align-items:center; gap:6px; flex-shrink:0; }
+  .badge { font-size:0.62rem; padding:1px 7px; border:1px solid; white-space:nowrap; }
+  .badge-mod  { color:#ffd700; border-color:rgba(255,215,0,0.25); background:rgba(255,215,0,0.06); }
+  .badge-bon  { color:var(--trader); border-color:rgba(68,255,136,0.2); background:rgba(68,255,136,0.05); }
+  .badge-chld { color:var(--text-dim); border-color:var(--border); }
 
-  .badge {
-    font-size:0.62rem; padding:1px 7px; border:1px solid; white-space:nowrap;
-  }
-  .badge-mod  { color:var(--gold);    border-color:rgba(255,215,0,0.25);    background:rgba(255,215,0,0.06); }
-  .badge-bon  { color:var(--trader);  border-color:rgba(68,255,136,0.2);    background:rgba(68,255,136,0.05); }
-  .badge-chld { color:var(--text-dim);border-color:var(--border); background:transparent; font-size:0.6rem; }
+  /* TYPE badges in detail view */
+  .type-icon-chassis  { color:#e879f9; }
+  .type-icon-bauteil  { color:#ffd700; }
+  .type-icon-bonus    { color:var(--trader); }
+  .type-icon-defense  { color:#60a5fa; }
 
-  /* ── CARD DETAILS ── */
-  .card-details {
-    padding:0 12px 10px 12px;
-    border-top:1px solid var(--border);
-  }
+  .card-details { padding:0 12px 10px 12px; border-top:1px solid var(--border); }
   .tech-card.collapsed .card-details { display:none; }
-
-  .tech-desc {
-    padding:8px 0 6px;
-    font-size:0.77rem; line-height:1.6; color:var(--text-dim); font-style:italic;
-  }
-
+  .tech-desc { padding:8px 0 6px; font-size:0.77rem; line-height:1.6; color:var(--text-dim); font-style:italic; }
   .detail-block { margin-top:6px; }
-  .detail-lbl {
-    font-family:'Orbitron',monospace; font-size:0.58rem; color:var(--text-dim);
-    letter-spacing:1px; text-transform:uppercase; margin-bottom:4px;
-  }
-  .mod-item {
-    display:flex; align-items:center; gap:8px;
-    font-size:0.74rem; padding:2px 0;
-  }
-  .mod-name { color:var(--gold); }
+  .detail-lbl { font-family:'Orbitron',monospace; font-size:0.58rem; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
+  .mod-item { display:flex; align-items:center; gap:8px; font-size:0.74rem; padding:2px 0; }
+  .mod-name { }
   .mod-lvl  { color:var(--text-dim); font-size:0.66rem; }
-
-  .bon-item {
-    font-size:0.74rem; color:var(--trader);
-    padding:2px 0; display:flex; gap:6px;
-  }
+  .mod-edit-btn { margin-left:auto; opacity:0; font-size:0.55rem; padding:2px 6px; }
+  .mod-item:hover .mod-edit-btn { opacity:1; }
+  .bon-item { font-size:0.74rem; color:var(--trader); padding:2px 0; display:flex; gap:6px; align-items:flex-start; }
   .bon-item::before { content:'⚡'; flex-shrink:0; }
+  .bon-edit-btn { margin-left:auto; opacity:0; font-size:0.55rem; padding:2px 6px; }
+  .bon-item:hover .bon-edit-btn { opacity:1; }
 
-  /* ── DIMMING FOR SEARCH ── */
   .tech-card.dimmed { opacity:0.25; }
   .tech-card.highlighted { background:rgba(0,212,255,0.04) !important; }
   .tech-card.highlighted .card-name { text-decoration:underline; }
+  .state-msg { padding:60px; text-align:center; font-family:'Orbitron',monospace; font-size:0.8rem; color:var(--text-dim); letter-spacing:3px; }
 
-  /* ── STATE MESSAGES ── */
-  .state-msg {
-    padding:60px; text-align:center;
-    font-family:'Orbitron',monospace; font-size:0.8rem;
-    color:var(--text-dim); letter-spacing:3px;
-  }
-
-  /* ── IMPORT / MANUAL ── */
+  /* IMPORT / MANUAL / MODULES */
   .wrap { padding:20px 24px; }
-
-  .info-box {
-    background:rgba(0,212,255,0.04); border:1px solid rgba(0,212,255,0.15);
-    padding:12px 16px; margin-bottom:16px; font-size:0.82rem;
-    line-height:1.6; color:var(--text-dim);
-  }
+  .info-box { background:rgba(0,212,255,0.04); border:1px solid rgba(0,212,255,0.15); padding:12px 16px; margin-bottom:16px; font-size:0.82rem; line-height:1.6; color:var(--text-dim); }
   .info-box strong { color:var(--accent); }
-
-  .panel {
-    background:var(--bg2); border:1px solid var(--border);
-    padding:20px; margin-bottom:16px;
-  }
-  .panel h2 {
-    font-family:'Orbitron',monospace; font-size:0.72rem; letter-spacing:2px;
-    color:var(--accent); margin-bottom:14px; text-transform:uppercase;
-  }
-
-  textarea {
-    width:100%; height:180px;
-    background:var(--bg); border:1px solid var(--border);
-    color:var(--text); font-family:'Exo 2',sans-serif; font-size:0.82rem;
-    padding:10px; resize:vertical; outline:none; transition:border-color 0.2s;
-  }
+  .panel { background:var(--bg2); border:1px solid var(--border); padding:20px; margin-bottom:16px; }
+  .panel h2 { font-family:'Orbitron',monospace; font-size:0.72rem; letter-spacing:2px; color:var(--accent); margin-bottom:14px; text-transform:uppercase; }
+  textarea { width:100%; height:180px; background:var(--bg); border:1px solid var(--border); color:var(--text); font-family:'Exo 2',sans-serif; font-size:0.82rem; padding:10px; resize:vertical; outline:none; transition:border-color 0.2s; }
   textarea:focus { border-color:var(--accent2); }
-
-  input[type="text"], select {
-    background:var(--bg); border:1px solid var(--border);
-    color:var(--text); font-family:'Exo 2',sans-serif; font-size:0.88rem;
-    padding:7px 12px; outline:none; width:100%; transition:border-color 0.2s;
-  }
+  input[type="text"], select { background:var(--bg); border:1px solid var(--border); color:var(--text); font-family:'Exo 2',sans-serif; font-size:0.88rem; padding:7px 12px; outline:none; width:100%; transition:border-color 0.2s; }
   input[type="text"]:focus, select:focus { border-color:var(--accent2); }
   select { cursor:pointer; }
-
   .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
-  .form-group label {
-    display:block; font-family:'Orbitron',monospace; font-size:0.58rem;
-    color:var(--text-dim); letter-spacing:1px; margin-bottom:5px; text-transform:uppercase;
-  }
+  .form-grid-3 { display:grid; grid-template-columns:2fr 1fr 1fr; gap:14px; margin-bottom:14px; }
+  .form-group label { display:block; font-family:'Orbitron',monospace; font-size:0.58rem; color:var(--text-dim); letter-spacing:1px; margin-bottom:5px; text-transform:uppercase; }
+  .status-msg { padding:9px 14px; border-left:3px solid var(--accent); background:rgba(0,212,255,0.04); font-size:0.82rem; margin-top:10px; display:none; }
+  .status-msg.show    { display:block; }
+  .status-msg.error   { border-color:#ff4444; background:rgba(255,68,68,0.04); color:#ff8888; }
+  .status-msg.success { border-color:var(--trader); background:rgba(68,255,136,0.04); color:var(--trader); }
 
-  .status-msg {
-    padding:9px 14px; border-left:3px solid var(--accent);
-    background:rgba(0,212,255,0.04); font-size:0.82rem;
-    margin-top:10px; display:none;
-  }
-  .status-msg.show   { display:block; }
-  .status-msg.error  { border-color:#ff4444; background:rgba(255,68,68,0.04); color:#ff8888; }
-  .status-msg.success{ border-color:var(--trader); background:rgba(68,255,136,0.04); color:var(--trader); }
+  /* TYPE SELECTOR */
+  .type-selector { display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+  .type-btn { padding:6px 14px; font-family:'Orbitron',monospace; font-size:0.58rem; font-weight:600; letter-spacing:1px; cursor:pointer; border:1px solid var(--border); background:transparent; color:var(--text-dim); transition:all 0.18s; text-transform:uppercase; }
+  .type-btn:hover { border-color:var(--accent2); color:var(--text); }
+  .type-btn.active[data-type="chassis"]  { border-color:#e879f9; color:#e879f9; background:rgba(232,121,249,0.1); }
+  .type-btn.active[data-type="bauteil"]  { border-color:#ffd700; color:#ffd700; background:rgba(255,215,0,0.1); }
+  .type-btn.active[data-type="bonus"]    { border-color:var(--trader); color:var(--trader); background:rgba(68,255,136,0.1); }
+  .type-btn.active[data-type="defense"]  { border-color:#60a5fa; color:#60a5fa; background:rgba(96,165,250,0.1); }
 
-  .sql-box {
-    background:#000; border:1px solid var(--border); padding:14px;
-    font-family:monospace; font-size:0.73rem; color:#88ff88;
-    white-space:pre-wrap; max-height:280px; overflow-y:auto; margin:12px 0;
-  }
+  /* MODULE LIST TABLE */
+  .mod-table { width:100%; border-collapse:collapse; margin-top:10px; }
+  .mod-table th { font-family:'Orbitron',monospace; font-size:0.6rem; color:var(--text-dim); letter-spacing:1px; text-align:left; padding:6px 10px; border-bottom:1px solid var(--border); text-transform:uppercase; }
+  .mod-table td { padding:7px 10px; border-bottom:1px solid rgba(30,48,80,0.4); font-size:0.8rem; vertical-align:middle; }
+  .mod-table tr:hover td { background:rgba(0,50,80,0.2); }
+  .mod-table .td-actions { display:flex; gap:6px; justify-content:flex-end; }
 
-  .modal-overlay {
-    position:fixed; inset:0; background:rgba(0,0,0,0.8);
-    z-index:500; display:none; align-items:center; justify-content:center;
-  }
+  .type-chip { font-family:'Orbitron',monospace; font-size:0.55rem; padding:1px 7px; border:1px solid; text-transform:uppercase; }
+  .type-chip.chassis  { color:#e879f9; border-color:rgba(232,121,249,0.4); }
+  .type-chip.bauteil  { color:#ffd700; border-color:rgba(255,215,0,0.4); }
+  .type-chip.bonus    { color:var(--trader); border-color:rgba(68,255,136,0.3); }
+  .type-chip.defense  { color:#60a5fa; border-color:rgba(96,165,250,0.4); }
+
+  /* MODAL */
+  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.82); z-index:500; display:none; align-items:center; justify-content:center; }
   .modal-overlay.show { display:flex; }
-  .modal {
-    background:var(--bg2); border:1px solid var(--border);
-    padding:26px; width:90%; max-width:540px; max-height:90vh; overflow-y:auto;
-  }
-  .modal h3 {
-    font-family:'Orbitron',monospace; font-size:0.8rem; color:var(--accent);
-    letter-spacing:2px; margin-bottom:16px; padding-bottom:10px;
-    border-bottom:1px solid var(--border); text-transform:uppercase;
-  }
+  .modal { background:var(--bg2); border:1px solid var(--border); padding:26px; width:90%; max-width:520px; max-height:90vh; overflow-y:auto; }
+  .modal h3 { font-family:'Orbitron',monospace; font-size:0.8rem; color:var(--accent); letter-spacing:2px; margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--border); text-transform:uppercase; }
   .modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:16px; padding-top:12px; border-top:1px solid var(--border); }
+
+  .sql-box { background:#000; border:1px solid var(--border); padding:14px; font-family:monospace; font-size:0.73rem; color:#88ff88; white-space:pre-wrap; max-height:280px; overflow-y:auto; margin:12px 0; }
 </style>
 </head>
 <body>
-<script>
-  // Redirect to hub if not authenticated this session
-  if (sessionStorage.getItem('alliance_auth') !== '1') {
-    window.location.href = 'index.html';
-  }
-</script>
+<script>if(sessionStorage.getItem('alliance_auth')!=='1'){window.location.href='index.html';}</script>
 
 <header>
   <div style="display:flex;align-items:center;gap:16px;">
@@ -425,12 +219,12 @@
 <div class="view active" id="view-tree">
   <div class="stats">
     <div class="stat"><div class="stat-num" id="s-techs"      style="color:var(--accent)">–</div><div class="stat-lbl">Technologien</div></div>
-    <div class="stat"><div class="stat-num" id="s-modules"    style="color:var(--gold)">–</div><div class="stat-lbl">Module</div></div>
+    <div class="stat"><div class="stat-num" id="s-modules"    style="color:#ffd700">–</div><div class="stat-lbl">Module/Boni</div></div>
     <div class="stat"><div class="stat-num" id="s-warlord"    style="color:var(--warlord)">–</div><div class="stat-lbl">Warlord</div></div>
     <div class="stat"><div class="stat-num" id="s-trader"     style="color:var(--trader)">–</div><div class="stat-lbl">Trader</div></div>
     <div class="stat"><div class="stat-num" id="s-freelancer" style="color:var(--freelancer)">–</div><div class="stat-lbl">Freelancer</div></div>
+    <div class="stat"><div class="stat-num" id="s-rasse"      style="color:var(--rasse)">–</div><div class="stat-lbl">Rassen</div></div>
   </div>
-
   <div class="toolbar">
     <div class="branch-pills">
       <button class="pill active" data-b="all"         onclick="selectBranch('all',this)">Alle</button>
@@ -449,33 +243,22 @@
     <button class="btn" id="det-btn" onclick="toggleAllDetails()">Details ausblenden</button>
     <button class="btn" onclick="loadTree()">↻ Neu laden</button>
   </div>
-
-  <div class="main" id="tree-root">
-    <div class="state-msg">Lade Techtree…</div>
-  </div>
+  <div class="main" id="tree-root"><div class="state-msg">Lade Techtree…</div></div>
 </div>
 
 <!-- ═══ IMPORT ═══ -->
 <div class="view" id="view-import">
   <div class="wrap">
-    <div class="info-box">
-      <strong>Anleitung:</strong> Kopiere deinen kompletten Techtree aus dem Spiel und füge ihn unten ein.
-      Neue Technologien werden hinzugefügt — bereits vorhandene werden übersprungen (keine Duplikate).
-    </div>
+
+    <!-- TECHTREE EINFÜGEN -->
     <div class="panel">
       <h2>📋 Techtree einfügen</h2>
-      <textarea id="import-text" placeholder="Psychologie - Level: 8
-Es hat Sie schon immer interessiert...
-Folgende Module wurden durch dieses Technologielevel bereits freigeschalten:
-WINCOM Laserkanone Psychologie Level 1
-* 
-Verbessern
-Suchen
-Motivationspsychologie - Level: 8
-Gefunden in Psychologie Level 6
-..."></textarea>
+      <div class="info-box" style="margin-bottom:12px;">
+        <strong>Hinweis:</strong> Rohdaten aus dem Spiel einfügen. Technologie-Struktur, Beschreibungen und Parent-Beziehungen werden erkannt. Module und Boni separat im Abschnitt darunter eintragen.
+      </div>
+      <textarea id="import-text" placeholder="Psychologie - Level: 8&#10;Es hat Sie schon immer interessiert...&#10;Gefunden in Psychologie Level 6&#10;Verbessern&#10;Suchen&#10;Motivationspsychologie - Level: 8&#10;..."></textarea>
       <div style="display:flex;gap:10px;margin-top:12px;align-items:center;flex-wrap:wrap;">
-        <button class="btn" style="border-color:var(--accent);color:var(--accent)" onclick="parseAndImport()">▶ Analysieren</button>
+        <button class="btn" onclick="parseAndImport()">▶ Analysieren</button>
         <button class="btn" onclick="document.getElementById('import-text').value=''">Leeren</button>
         <span id="import-count" style="color:var(--text-dim);font-size:0.8rem;"></span>
       </div>
@@ -491,6 +274,66 @@ Gefunden in Psychologie Level 6
         </div>
       </div>
     </div>
+
+    <!-- TEILE / BONI EINFÜGEN -->
+    <div class="panel">
+      <h2>🔩 Teile / Boni einfügen</h2>
+      <div class="info-box" style="margin-bottom:14px;">
+        <strong>Hier</strong> trägst du Chassis, Bauteile, Boni und Defense-Module ein. Wähle den Typ, gib den Namen ein, die freischaltende Technologie und das Level.
+      </div>
+
+      <!-- Add form -->
+      <div class="type-selector" id="mod-type-selector">
+        <button class="type-btn active" data-type="bauteil"  onclick="selectType('bauteil',this)">⚙ Bauteil</button>
+        <button class="type-btn"        data-type="chassis"  onclick="selectType('chassis',this)">🚀 Chassis</button>
+        <button class="type-btn"        data-type="bonus"    onclick="selectType('bonus',this)">⚡ Bonus</button>
+        <button class="type-btn"        data-type="defense"  onclick="selectType('defense',this)">🛡 Defense</button>
+      </div>
+      <div class="form-grid-3">
+        <div class="form-group">
+          <label>Name des Teils / Bonus *</label>
+          <input type="text" id="mod-name" placeholder="z.B. Nemesis Cruiser">
+        </div>
+        <div class="form-group">
+          <label>Freischaltende Tech *</label>
+          <input type="text" id="mod-tech" placeholder="z.B. Seelenverbindung" list="tech-list">
+          <datalist id="tech-list"></datalist>
+        </div>
+        <div class="form-group">
+          <label>Freigeschaltet ab Level *</label>
+          <input type="text" id="mod-level" placeholder="z.B. 9">
+        </div>
+      </div>
+      <!-- Bonus-Text field (only visible for bonus type) -->
+      <div class="form-group" id="bonus-text-wrap" style="margin-bottom:14px;display:none;">
+        <label>Bonus-Beschreibung *</label>
+        <input type="text" id="mod-bonus-text" placeholder="z.B. Erhöht Zielen von Schiffen um 7.5 % pro Level dieser Technologie">
+      </div>
+      <button class="btn" onclick="addModule()">➕ Hinzufügen</button>
+      <div class="status-msg" id="mod-status"></div>
+
+      <!-- Existing list -->
+      <div style="margin-top:20px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <span style="font-family:'Orbitron',monospace;font-size:0.65rem;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;">Eingetragene Teile & Boni</span>
+          <div style="display:flex;gap:8px;">
+            <select id="mod-filter-type" style="padding:4px 8px;font-size:0.75rem;width:auto;" onchange="renderModList()">
+              <option value="">Alle Typen</option>
+              <option value="bauteil">Bauteil</option>
+              <option value="chassis">Chassis</option>
+              <option value="bonus">Bonus</option>
+              <option value="defense">Defense</option>
+            </select>
+            <input type="text" id="mod-filter-search" placeholder="Suchen…" style="padding:4px 8px;font-size:0.75rem;width:160px;" oninput="renderModList()">
+          </div>
+        </div>
+        <table class="mod-table">
+          <thead><tr><th>Typ</th><th>Name</th><th>Tech</th><th>Level</th><th></th></tr></thead>
+          <tbody id="mod-list-body"><tr><td colspan="5" style="text-align:center;color:var(--text-dim);padding:20px;">Lade…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -521,14 +364,42 @@ Gefunden in Psychologie Level 6
             <option value="warlord">Warlord</option>
             <option value="trader">Trader</option>
             <option value="freelancer">Freelancer</option>
+            <option value="mensch">Mensch</option>
+            <option value="magumer">Magumer</option>
+            <option value="wegoner">Wegoner</option>
+            <option value="jamozoid">Jamozoid</option>
+            <option value="morricaner">Morricaner</option>
+            <option value="mosoraner">Mosoraner</option>
+            <option value="ozoid">Ozoid</option>
+            <option value="plentrop">Plentrop</option>
+            <option value="zuup">Zuup</option>
           </select>
         </div>
       </div>
-      <div class="form-group" style="margin-bottom:12px;"><label>Beschreibung</label><textarea id="m-desc" style="height:70px;"></textarea></div>
-      <div class="form-group" style="margin-bottom:12px;"><label>Module (je Zeile: "Name Level X")</label><textarea id="m-modules" style="height:60px;" placeholder="WINCOM Laserkanone Level 1"></textarea></div>
-      <div class="form-group" style="margin-bottom:14px;"><label>Boni (je Zeile)</label><textarea id="m-bonuses" style="height:50px;" placeholder="Erhöht Zielen um 7.5 % pro Level"></textarea></div>
-      <button class="btn" style="border-color:var(--accent)" onclick="manualAdd()">➕ Hinzufügen</button>
+      <div class="form-group" style="margin-bottom:14px;"><label>Beschreibung</label><textarea id="m-desc" style="height:70px;"></textarea></div>
+      <button class="btn" onclick="manualAdd()">➕ Hinzufügen</button>
       <div class="status-msg" id="manual-status"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="edit-modal">
+  <div class="modal">
+    <h3 id="edit-modal-title">Eintrag bearbeiten</h3>
+    <div class="form-grid-3" style="margin-bottom:14px;">
+      <div class="form-group"><label>Name</label><input type="text" id="edit-name"></div>
+      <div class="form-group"><label>Tech</label><input type="text" id="edit-tech" list="tech-list-edit"><datalist id="tech-list-edit"></datalist></div>
+      <div class="form-group"><label>Level</label><input type="text" id="edit-level"></div>
+    </div>
+    <div class="form-group" id="edit-bonus-wrap" style="margin-bottom:14px;display:none;">
+      <label>Bonus-Text</label>
+      <input type="text" id="edit-bonus-text">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-danger" onclick="deleteModEntry()">🗑 Löschen</button>
+      <button class="btn" onclick="document.getElementById('edit-modal').classList.remove('show')">Abbrechen</button>
+      <button class="btn" style="border-color:var(--trader);color:var(--trader)" onclick="saveModEntry()">✓ Speichern</button>
     </div>
   </div>
 </div>
@@ -537,8 +408,9 @@ Gefunden in Psychologie Level 6
 <div class="modal-overlay" id="setup-modal">
   <div class="modal">
     <h3>⚙ Datenbank Setup</h3>
-    <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:8px;">Einmalig im Supabase SQL Editor ausführen:</p>
-    <div class="sql-box">CREATE TABLE IF NOT EXISTS technologies (
+    <p style="font-size:0.8rem;color:var(--text-dim);margin-bottom:8px;">Einmalig im Supabase SQL Editor ausführen. Füge auch die neue Spalte <code style="color:var(--accent)">module_type</code> hinzu falls du das Tool aktualisierst:</p>
+    <div class="sql-box">-- Neue Tabellen erstellen (falls noch nicht vorhanden)
+CREATE TABLE IF NOT EXISTS technologies (
   id BIGSERIAL PRIMARY KEY,
   name TEXT NOT NULL UNIQUE,
   branch TEXT NOT NULL,
@@ -552,27 +424,33 @@ CREATE TABLE IF NOT EXISTS tech_modules (
   id BIGSERIAL PRIMARY KEY,
   tech_name TEXT NOT NULL REFERENCES technologies(name) ON DELETE CASCADE,
   module_name TEXT NOT NULL,
-  unlock_level INTEGER NOT NULL
+  unlock_level INTEGER NOT NULL,
+  module_type TEXT DEFAULT 'bauteil'
 );
 CREATE TABLE IF NOT EXISTS tech_bonuses (
   id BIGSERIAL PRIMARY KEY,
   tech_name TEXT NOT NULL REFERENCES technologies(name) ON DELETE CASCADE,
   bonus_text TEXT NOT NULL
 );
+
+-- Falls tech_modules bereits existiert, Spalte ergänzen:
+ALTER TABLE tech_modules ADD COLUMN IF NOT EXISTS module_type TEXT DEFAULT 'bauteil';
+
+-- RLS
 ALTER TABLE technologies ENABLE ROW LEVEL SECURITY;
 ALTER TABLE tech_modules  ENABLE ROW LEVEL SECURITY;
 ALTER TABLE tech_bonuses  ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "r" ON technologies FOR SELECT USING (true);
 CREATE POLICY "i" ON technologies FOR INSERT WITH CHECK (true);
 CREATE POLICY "u" ON technologies FOR UPDATE USING (true);
-CREATE POLICY "r" ON tech_modules  FOR SELECT USING (true);
-CREATE POLICY "i" ON tech_modules  FOR INSERT WITH CHECK (true);
-CREATE POLICY "u" ON tech_modules  FOR UPDATE USING (true);
-CREATE POLICY "d" ON tech_modules  FOR DELETE  USING (true);
-CREATE POLICY "r" ON tech_bonuses  FOR SELECT USING (true);
-CREATE POLICY "i" ON tech_bonuses  FOR INSERT WITH CHECK (true);
-CREATE POLICY "u" ON tech_bonuses  FOR UPDATE USING (true);
-CREATE POLICY "d" ON tech_bonuses  FOR DELETE  USING (true);</div>
+CREATE POLICY "r" ON tech_modules FOR SELECT USING (true);
+CREATE POLICY "i" ON tech_modules FOR INSERT WITH CHECK (true);
+CREATE POLICY "u" ON tech_modules FOR UPDATE USING (true);
+CREATE POLICY "d" ON tech_modules FOR DELETE  USING (true);
+CREATE POLICY "r" ON tech_bonuses FOR SELECT USING (true);
+CREATE POLICY "i" ON tech_bonuses FOR INSERT WITH CHECK (true);
+CREATE POLICY "u" ON tech_bonuses FOR UPDATE USING (true);
+CREATE POLICY "d" ON tech_bonuses FOR DELETE  USING (true);</div>
     <div class="modal-actions">
       <button class="btn" onclick="document.getElementById('setup-modal').classList.remove('show')">Schließen</button>
     </div>
@@ -584,19 +462,20 @@ CREATE POLICY "d" ON tech_bonuses  FOR DELETE  USING (true);</div>
 const SUPABASE_URL = 'https://dcwtykbujgilyluvyjal.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_UrMDrWlA1E7gJSY7by3qRw_8mNZXht-';
 
-const BRANCH_COLORS = {
-  psychologie:'#a855f7', informatik:'#3b82f6', politik:'#ef4444',
-  naturkunde:'#22c55e',  historik:'#f59e0b',   mathematik:'#06b6d4', technik:'#f97316'
-};
+// Rasse tech classes (all become yellow)
+const RASSEN = new Set(['mensch','magumer','wegoner','jamozoid','morricaner','mosoraner','ozoid','plentrop','zuup']);
 const CLASS_COLORS = { warlord:'#ff4444', trader:'#44ff88', freelancer:'#4488ff' };
+const NODE_COLOR = '#00d4ff'; // all branch nodes same
 const BRANCHES = ['psychologie','informatik','politik','naturkunde','historik','mathematik','technik'];
+const TYPE_ICONS = { chassis:'🚀', bauteil:'⚙', bonus:'⚡', defense:'🛡' };
+const TYPE_LABELS = { chassis:'Chassis', bauteil:'Bauteil', bonus:'Bonus', defense:'Defense' };
 
 // ── STATE ──
 let allTechs=[], allModules=[], allBonuses=[];
 let parsedImport=null;
-let currentBranch='all';
-let searchQuery='';
-let detailsVisible=true;
+let currentBranch='all', searchQuery='', detailsVisible=true;
+let selectedModType='bauteil';
+let editingModId=null, editingModKind=null; // 'module' or 'bonus'
 
 // ── SUPABASE ──
 async function sb(table, opts={}) {
@@ -605,11 +484,19 @@ async function sb(table, opts={}) {
   if(opts.select) p.set('select',opts.select);
   if(opts.order)  p.set('order', opts.order);
   if([...p].length) url+='?'+p;
-  const res=await fetch(url,{
-    method:opts.method||'GET',
-    headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=representation'},
-    body:opts.body?JSON.stringify(opts.body):undefined
-  });
+  const hdrs={'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=representation'};
+  if(opts.method==='DELETE') delete hdrs['Prefer'];
+  const res=await fetch(url,{method:opts.method||'GET',headers:hdrs,body:opts.body?JSON.stringify(opts.body):undefined});
+  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.message||`HTTP ${res.status}`);}
+  if(res.status===204) return [];
+  return res.json();
+}
+async function sbFilter(table,col,val,opts={}) {
+  let url=`${SUPABASE_URL}/rest/v1/${table}?${col}=eq.${encodeURIComponent(val)}`;
+  if(opts.select) url+=`&select=${opts.select}`;
+  const hdrs={'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=representation'};
+  if(opts.method==='DELETE') delete hdrs['Prefer'];
+  const res=await fetch(url,{method:opts.method||'GET',headers:hdrs,body:opts.body?JSON.stringify(opts.body):undefined});
   if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.message||`HTTP ${res.status}`);}
   if(res.status===204) return [];
   return res.json();
@@ -621,6 +508,7 @@ function switchTab(t) {
   document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
   document.getElementById(`view-${t}`).classList.add('active');
   if(t==='tree') loadTree();
+  if(t==='import') { loadModList(); populateTechDatalist(); }
 }
 
 // ── LOAD ──
@@ -632,19 +520,28 @@ async function loadTree() {
       sb('tech_modules', {select:'*'}),
       sb('tech_bonuses', {select:'*'})
     ]);
-    updateStats();
-    renderTree();
+    updateStats(); renderTree();
   } catch(e) {
     document.getElementById('tree-root').innerHTML=`<div class="state-msg">Fehler: ${e.message}</div>`;
   }
 }
 
+function getNodeColor(tech) {
+  if(!tech) return NODE_COLOR;
+  if(tech.tech_class==='warlord')    return CLASS_COLORS.warlord;
+  if(tech.tech_class==='trader')     return CLASS_COLORS.trader;
+  if(tech.tech_class==='freelancer') return CLASS_COLORS.freelancer;
+  if(RASSEN.has(tech.tech_class))    return '#ffd700';
+  return NODE_COLOR;
+}
+
 function updateStats() {
   document.getElementById('s-techs').textContent=allTechs.length;
-  document.getElementById('s-modules').textContent=allModules.length;
+  document.getElementById('s-modules').textContent=allModules.length+allBonuses.length;
   document.getElementById('s-warlord').textContent=allTechs.filter(t=>t.tech_class==='warlord').length;
   document.getElementById('s-trader').textContent=allTechs.filter(t=>t.tech_class==='trader').length;
   document.getElementById('s-freelancer').textContent=allTechs.filter(t=>t.tech_class==='freelancer').length;
+  document.getElementById('s-rasse').textContent=allTechs.filter(t=>RASSEN.has(t.tech_class)).length;
 }
 
 function selectBranch(b,btn) {
@@ -652,9 +549,7 @@ function selectBranch(b,btn) {
   document.querySelectorAll('.pill').forEach(p=>p.classList.toggle('active',p.dataset.b===b));
   renderTree();
 }
-
 function onSearch(v) { searchQuery=v.toLowerCase().trim(); renderTree(); }
-
 function toggleAllDetails() {
   detailsVisible=!detailsVisible;
   const btn=document.getElementById('det-btn');
@@ -666,25 +561,18 @@ function toggleAllDetails() {
   });
 }
 
-// ── RENDER ──
+// ── RENDER TREE ──
 function renderTree() {
   let techs=allTechs;
   if(currentBranch!=='all') techs=techs.filter(t=>t.branch===currentBranch);
   if(!techs.length){document.getElementById('tree-root').innerHTML='<div class="state-msg">Keine Technologien vorhanden.</div>';return;}
-
-  // Build tree structure
   const map={};
   techs.forEach(t=>map[t.name]={...t,_ch:[]});
   const roots=[];
-  techs.forEach(t=>{
-    if(t.parent_name&&map[t.parent_name]) map[t.parent_name]._ch.push(map[t.name]);
-    else roots.push(map[t.name]);
-  });
+  techs.forEach(t=>{ if(t.parent_name&&map[t.parent_name]) map[t.parent_name]._ch.push(map[t.name]); else roots.push(map[t.name]); });
   function sortR(n){n._ch.sort((a,b)=>a.name.localeCompare(b.name));n._ch.forEach(sortR);}
-  roots.sort((a,b)=>a.name.localeCompare(b.name));
-  roots.forEach(sortR);
+  roots.sort((a,b)=>a.name.localeCompare(b.name)); roots.forEach(sortR);
 
-  // Search matching
   let matchSet=null;
   if(searchQuery){
     matchSet=new Set();
@@ -703,95 +591,50 @@ function renderTree() {
 
   const root=document.getElementById('tree-root');
   root.innerHTML='';
-
   branchList.forEach(branch=>{
     const nodes=byBranch[branch];
     if(!nodes||!nodes.length) return;
-
-    const color=BRANCH_COLORS[branch]||'#00d4ff';
-
     const section=document.createElement('div');
     section.className='branch-section';
-
-    // Branch header
     const hdr=document.createElement('div');
     hdr.className='branch-header';
-    hdr.style.borderColor=color;
-    hdr.style.color=color;
-    const total=countNodes(nodes);
-    hdr.innerHTML=`<span class="chevron">▼</span><span class="branch-name">${branch}</span><span class="branch-count">${total} Techs</span>`;
-
+    hdr.innerHTML=`<span class="chevron">▼</span><span class="branch-name">${branch}</span><span class="branch-count">${countNodes(nodes)} Techs</span>`;
     const body=document.createElement('div');
     body.className='branch-body';
-
-    hdr.onclick=()=>{
-      const col=body.classList.toggle('collapsed');
-      hdr.classList.toggle('collapsed',col);
-    };
-
-    // Render top-level nodes (depth=0, no rail needed, but pass ancestorIsLast=[])
-    nodes.forEach((node,i)=>{
-      body.appendChild(buildNode(node,branch,color,[],matchSet));
-    });
-
-    section.appendChild(hdr);
-    section.appendChild(body);
-    root.appendChild(section);
+    hdr.onclick=()=>{const c=body.classList.toggle('collapsed');hdr.classList.toggle('collapsed',c);};
+    nodes.forEach(node=>body.appendChild(buildNode(node,[],matchSet)));
+    section.appendChild(hdr); section.appendChild(body); root.appendChild(section);
   });
 }
 
-function countNodes(nodes){
-  let c=0;
-  function cnt(n){c++;n._ch.forEach(cnt);}
-  nodes.forEach(cnt);
-  return c;
-}
+function countNodes(nodes){let c=0;function cnt(n){c++;n._ch.forEach(cnt);}nodes.forEach(cnt);return c;}
 
-// ── BUILD NODE ──
-// ancestorIsLast: array of booleans, one per depth level above this node
-// true = that ancestor was the last child (no more siblings below it) → no vertical line
-// false = that ancestor had more siblings → draw vertical line
-function buildNode(node, branch, branchColor, ancestorIsLast, matchSet) {
+function buildNode(node, ancestorIsLast, matchSet) {
   const mods=allModules.filter(m=>m.tech_name===node.name);
   const bons=allBonuses.filter(b=>b.tech_name===node.name);
-  const classColor=node.tech_class?CLASS_COLORS[node.tech_class]:null;
-  const nodeColor=classColor||branchColor;
+  const nodeColor=getNodeColor(node);
   const depth=ancestorIsLast.length;
-
   const isMatch=matchSet?matchSet.has(node.name):true;
   const hasSearch=searchQuery&&matchSet;
   const hasDetails=!!(node.description||mods.length||bons.length);
 
   const wrapper=document.createElement('div');
   wrapper.className='tech-node';
-
   const row=document.createElement('div');
   row.className='tech-row';
 
-  // Rail (indent + connector lines)
+  // Rail
   if(depth>0){
     const rail=document.createElement('div');
     rail.className='tech-rail';
-
     for(let d=0;d<depth;d++){
       const seg=document.createElement('div');
       seg.className='rail-segment'+(d===depth-1?' last':'');
-      // Set line color via CSS custom property
-      seg.style.setProperty('--lc', nodeColor+'66');
-
-      const vl=document.createElement('div');
-      vl.className='vl';
-      // If this ancestor was the last child, don't draw vertical line for segments above
-      if(d<depth-1 && ancestorIsLast[d]) {
-        vl.style.display='none';
-      }
+      seg.style.setProperty('--lc', nodeColor+'55');
+      const vl=document.createElement('div'); vl.className='vl';
+      if(d<depth-1&&ancestorIsLast[d]) vl.style.display='none';
       seg.appendChild(vl);
-
-      if(d===depth-1){
-        const hl=document.createElement('div');
-        hl.className='hl';
-        seg.appendChild(hl);
-      }
+      if(d===depth-1){const hl=document.createElement('div');hl.className='hl';seg.appendChild(hl);}
       rail.appendChild(seg);
     }
     row.appendChild(rail);
@@ -800,86 +643,64 @@ function buildNode(node, branch, branchColor, ancestorIsLast, matchSet) {
   // Card
   const card=document.createElement('div');
   card.className='tech-card'+(hasDetails?'':' no-details');
-  card.style.setProperty('--ca',nodeColor);
-  card.style.setProperty('--cb',nodeColor+'44');
+  card.style.setProperty('--ca', nodeColor);
+  card.style.setProperty('--cb', nodeColor+'33');
   if(hasSearch&&!isMatch) card.classList.add('dimmed');
   if(hasSearch&&isMatch)  card.classList.add('highlighted');
   if(!detailsVisible)     card.classList.add('collapsed');
 
-  // Card header
+  // Header
   const hdr=document.createElement('div');
   hdr.className='card-hdr';
+  const chv=document.createElement('span'); chv.className='card-chevron'; chv.textContent='▼';
+  const nm=document.createElement('span');  nm.className='card-name';     nm.textContent=node.name;
+  const tags=document.createElement('div'); tags.className='card-tags';
 
-  const chv=document.createElement('span');
-  chv.className='card-chevron';
-  chv.textContent='▼';
-
-  const nameEl=document.createElement('span');
-  nameEl.className='card-name';
-  nameEl.textContent=node.name;
-
-  const tags=document.createElement('div');
-  tags.className='card-tags';
-
-  if(node.tech_class){
+  // Class tag
+  if(node.tech_class) {
     const t=document.createElement('span');
-    t.className=`class-tag ${node.tech_class}`;
-    t.textContent=node.tech_class;
+    const isRasse=RASSEN.has(node.tech_class);
+    t.className=`class-tag ${isRasse?'rasse':node.tech_class}`;
+    t.textContent=isRasse?node.tech_class+'-Tech':node.tech_class;
     tags.appendChild(t);
   }
   if(node.parent_name&&node.found_in_parent_level){
-    const f=document.createElement('span');
-    f.className='found-tag';
+    const f=document.createElement('span'); f.className='found-tag';
     f.textContent=`← ${node.parent_name} Lv.${node.found_in_parent_level}`;
     tags.appendChild(f);
   }
 
-  const badges=document.createElement('div');
-  badges.className='card-badges';
-  if(mods.length){const b=document.createElement('span');b.className='badge badge-mod';b.textContent=`📦 ${mods.length}`;badges.appendChild(b);}
+  const badges=document.createElement('div'); badges.className='card-badges';
+  if(mods.length){const b=document.createElement('span');b.className='badge badge-mod';b.textContent=`⚙ ${mods.length}`;badges.appendChild(b);}
   if(bons.length){const b=document.createElement('span');b.className='badge badge-bon';b.textContent=`⚡ ${bons.length}`;badges.appendChild(b);}
   if(node._ch.length){const b=document.createElement('span');b.className='badge badge-chld';b.textContent=`▸ ${node._ch.length}`;badges.appendChild(b);}
 
-  hdr.appendChild(chv);
-  hdr.appendChild(nameEl);
-  hdr.appendChild(tags);
-  hdr.appendChild(badges);
-
-  if(hasDetails){
-    hdr.addEventListener('click',()=>card.classList.toggle('collapsed'));
-  }
+  hdr.appendChild(chv); hdr.appendChild(nm); hdr.appendChild(tags); hdr.appendChild(badges);
+  if(hasDetails) hdr.addEventListener('click',()=>card.classList.toggle('collapsed'));
   card.appendChild(hdr);
 
   // Details
   if(hasDetails){
-    const det=document.createElement('div');
-    det.className='card-details';
-
-    if(node.description){
-      const d=document.createElement('div');
-      d.className='tech-desc';
-      d.textContent=node.description;
-      det.appendChild(d);
-    }
+    const det=document.createElement('div'); det.className='card-details';
+    if(node.description){const d=document.createElement('div');d.className='tech-desc';d.textContent=node.description;det.appendChild(d);}
     if(mods.length){
-      const bl=document.createElement('div');bl.className='detail-block';
-      const l=document.createElement('div');l.className='detail-lbl';l.textContent='Freigeschaltete Module';
+      const bl=document.createElement('div'); bl.className='detail-block';
+      const l=document.createElement('div'); l.className='detail-lbl'; l.textContent='Module / Teile';
       bl.appendChild(l);
       mods.forEach(m=>{
-        const i=document.createElement('div');i.className='mod-item';
-        i.innerHTML=`<span class="mod-name">📦 ${m.module_name}</span><span class="mod-lvl">Level ${m.unlock_level}</span>`;
+        const typeIcon=TYPE_ICONS[m.module_type]||'⚙';
+        const typeClass=`type-icon-${m.module_type||'bauteil'}`;
+        const i=document.createElement('div'); i.className='mod-item';
+        i.innerHTML=`<span class="${typeClass}">${typeIcon}</span><span class="mod-name">${m.module_name}</span><span class="mod-lvl">ab Level ${m.unlock_level}</span>`;
         bl.appendChild(i);
       });
       det.appendChild(bl);
     }
     if(bons.length){
-      const bl=document.createElement('div');bl.className='detail-block';
-      const l=document.createElement('div');l.className='detail-lbl';l.textContent='Boni / Effekte';
+      const bl=document.createElement('div'); bl.className='detail-block';
+      const l=document.createElement('div'); l.className='detail-lbl'; l.textContent='Boni / Effekte';
       bl.appendChild(l);
-      bons.forEach(b=>{
-        const i=document.createElement('div');i.className='bon-item';i.textContent=b.bonus_text;
-        bl.appendChild(i);
-      });
+      bons.forEach(b=>{const i=document.createElement('div');i.className='bon-item';i.textContent=b.bonus_text;bl.appendChild(i);});
       det.appendChild(bl);
     }
     card.appendChild(det);
@@ -889,95 +710,227 @@ function buildNode(node, branch, branchColor, ancestorIsLast, matchSet) {
   wrapper.appendChild(row);
 
   // Children
-  if(node._ch.length){
-    node._ch.forEach((child,idx)=>{
-      const isLast=idx===node._ch.length-1;
-      // For each child, pass down: existing ancestorIsLast + whether THIS node is last
-      wrapper.appendChild(buildNode(child,branch,branchColor,[...ancestorIsLast,isLast],matchSet));
-    });
-  }
-
+  node._ch.forEach((child,idx)=>{
+    wrapper.appendChild(buildNode(child,[...ancestorIsLast,idx===node._ch.length-1],matchSet));
+  });
   return wrapper;
 }
 
-// ── PARSER ──
+// ── MODULE TYPE SELECTOR ──
+function selectType(type, btn) {
+  selectedModType=type;
+  document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('bonus-text-wrap').style.display=type==='bonus'?'block':'none';
+}
+
+// ── POPULATE TECH DATALIST ──
+async function populateTechDatalist() {
+  try {
+    const techs=await sb('technologies',{select:'name',order:'name.asc'});
+    const opts=techs.map(t=>`<option value="${t.name}">`).join('');
+    document.getElementById('tech-list').innerHTML=opts;
+    document.getElementById('tech-list-edit').innerHTML=opts;
+  } catch(e){}
+}
+
+// ── LOAD MODULE LIST ──
+async function loadModList() {
+  try {
+    const [mods,bons]=await Promise.all([
+      sb('tech_modules',{select:'*',order:'tech_name.asc'}),
+      sb('tech_bonuses',{select:'*',order:'tech_name.asc'})
+    ]);
+    allModules=mods; allBonuses=bons;
+    renderModList();
+  } catch(e){console.error(e);}
+}
+
+function renderModList() {
+  const typeFilter=document.getElementById('mod-filter-type').value;
+  const searchFilter=document.getElementById('mod-filter-search').value.toLowerCase();
+  const tbody=document.getElementById('mod-list-body');
+
+  let rows=[];
+
+  // Modules
+  allModules.forEach(m=>{
+    if(typeFilter&&m.module_type!==typeFilter) return;
+    if(searchFilter&&!m.module_name.toLowerCase().includes(searchFilter)&&!m.tech_name.toLowerCase().includes(searchFilter)) return;
+    const type=m.module_type||'bauteil';
+    const icon=TYPE_ICONS[type]||'⚙';
+    rows.push(`<tr>
+      <td><span class="type-chip ${type}">${icon} ${TYPE_LABELS[type]||type}</span></td>
+      <td>${m.module_name}</td>
+      <td style="color:var(--text-dim)">${m.tech_name}</td>
+      <td style="color:var(--text-dim)">${m.unlock_level}</td>
+      <td><div class="td-actions">
+        <button class="btn btn-sm btn-warn" onclick="openEditMod(${m.id},'module')">✏</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteMod(${m.id},'module')">🗑</button>
+      </div></td>
+    </tr>`);
+  });
+
+  // Bonuses (only show if type filter is empty or 'bonus')
+  if(!typeFilter||typeFilter==='bonus') {
+    allBonuses.forEach(b=>{
+      if(searchFilter&&!b.bonus_text.toLowerCase().includes(searchFilter)&&!b.tech_name.toLowerCase().includes(searchFilter)) return;
+      rows.push(`<tr>
+        <td><span class="type-chip bonus">⚡ Bonus</span></td>
+        <td style="max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${b.bonus_text}">${b.bonus_text}</td>
+        <td style="color:var(--text-dim)">${b.tech_name}</td>
+        <td style="color:var(--text-dim)">–</td>
+        <td><div class="td-actions">
+          <button class="btn btn-sm btn-warn" onclick="openEditMod(${b.id},'bonus')">✏</button>
+          <button class="btn btn-sm btn-danger" onclick="deleteMod(${b.id},'bonus')">🗑</button>
+        </div></td>
+      </tr>`);
+    });
+  }
+
+  tbody.innerHTML=rows.length?rows.join(''):`<tr><td colspan="5" style="text-align:center;color:var(--text-dim);padding:20px;">Keine Einträge.</td></tr>`;
+}
+
+// ── ADD MODULE/BONUS ──
+async function addModule() {
+  const name=document.getElementById('mod-name').value.trim();
+  const tech=document.getElementById('mod-tech').value.trim();
+  const level=document.getElementById('mod-level').value.trim();
+  const bonusText=document.getElementById('mod-bonus-text').value.trim();
+
+  if(!tech){showSt('mod-status','Bitte eine Tech angeben.','error');return;}
+
+  try {
+    if(selectedModType==='bonus'){
+      if(!bonusText){showSt('mod-status','Bitte Bonus-Beschreibung eingeben.','error');return;}
+      const r=await sb('tech_bonuses',{method:'POST',body:{tech_name:tech,bonus_text:bonusText}});
+      allBonuses.push(r[0]);
+    } else {
+      if(!name){showSt('mod-status','Bitte einen Namen eingeben.','error');return;}
+      if(!level||isNaN(level)){showSt('mod-status','Bitte ein gültiges Level eingeben.','error');return;}
+      const r=await sb('tech_modules',{method:'POST',body:{tech_name:tech,module_name:name,unlock_level:parseInt(level),module_type:selectedModType}});
+      allModules.push(r[0]);
+    }
+    showSt('mod-status','✓ Erfolgreich hinzugefügt!','success');
+    document.getElementById('mod-name').value='';
+    document.getElementById('mod-tech').value='';
+    document.getElementById('mod-level').value='';
+    document.getElementById('mod-bonus-text').value='';
+    renderModList();
+    // Also refresh tree if visible
+    if(document.getElementById('view-tree').classList.contains('active')) loadTree();
+  } catch(e){showSt('mod-status','✗ Fehler: '+e.message,'error');}
+}
+
+// ── EDIT MODAL ──
+function openEditMod(id, kind) {
+  editingModId=id; editingModKind=kind;
+  if(kind==='module'){
+    const m=allModules.find(x=>x.id===id);
+    if(!m) return;
+    document.getElementById('edit-modal-title').textContent='Bauteil / Chassis / Defense bearbeiten';
+    document.getElementById('edit-name').value=m.module_name;
+    document.getElementById('edit-tech').value=m.tech_name;
+    document.getElementById('edit-level').value=m.unlock_level;
+    document.getElementById('edit-bonus-wrap').style.display='none';
+  } else {
+    const b=allBonuses.find(x=>x.id===id);
+    if(!b) return;
+    document.getElementById('edit-modal-title').textContent='Bonus bearbeiten';
+    document.getElementById('edit-name').value='';
+    document.getElementById('edit-tech').value=b.tech_name;
+    document.getElementById('edit-level').value='';
+    document.getElementById('edit-bonus-text').value=b.bonus_text;
+    document.getElementById('edit-bonus-wrap').style.display='block';
+  }
+  document.getElementById('edit-modal').classList.add('show');
+}
+
+async function saveModEntry() {
+  try {
+    const tech=document.getElementById('edit-tech').value.trim();
+    if(editingModKind==='module'){
+      const name=document.getElementById('edit-name').value.trim();
+      const level=document.getElementById('edit-level').value.trim();
+      await sbFilter('tech_modules','id',editingModId,{method:'PATCH',body:{module_name:name,tech_name:tech,unlock_level:parseInt(level)}});
+      const idx=allModules.findIndex(x=>x.id===editingModId);
+      if(idx>=0){allModules[idx].module_name=name;allModules[idx].tech_name=tech;allModules[idx].unlock_level=parseInt(level);}
+    } else {
+      const bonusText=document.getElementById('edit-bonus-text').value.trim();
+      await sbFilter('tech_bonuses','id',editingModId,{method:'PATCH',body:{tech_name:tech,bonus_text:bonusText}});
+      const idx=allBonuses.findIndex(x=>x.id===editingModId);
+      if(idx>=0){allBonuses[idx].tech_name=tech;allBonuses[idx].bonus_text=bonusText;}
+    }
+    document.getElementById('edit-modal').classList.remove('show');
+    renderModList();
+    if(document.getElementById('view-tree').classList.contains('active')) loadTree();
+  } catch(e){alert('Fehler: '+e.message);}
+}
+
+async function deleteModEntry() {
+  if(!confirm('Eintrag wirklich löschen?')) return;
+  await deleteMod(editingModId, editingModKind);
+  document.getElementById('edit-modal').classList.remove('show');
+}
+
+async function deleteMod(id, kind) {
+  try {
+    if(kind==='module'){
+      await sbFilter('tech_modules','id',id,{method:'DELETE'});
+      allModules=allModules.filter(x=>x.id!==id);
+    } else {
+      await sbFilter('tech_bonuses','id',id,{method:'DELETE'});
+      allBonuses=allBonuses.filter(x=>x.id!==id);
+    }
+    renderModList();
+    if(document.getElementById('view-tree').classList.contains('active')) loadTree();
+  } catch(e){alert('Fehler: '+e.message);}
+}
+
+// ── PARSER (only structure, no modules/bonuses) ──
 function parseTechText(text){
   const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
   const techs=[];let cur=null;let i=0;
-  let inModules=false; // track whether we just saw "Folgende Module"
-
   while(i<lines.length){
     const line=lines[i];
-
-    // Skip navigation lines (standalone)
     if(line==='Verbessern'||line==='Suchen'||line==='*'){i++;continue;}
-
-    // Tech header: "Name - Level: X" or "Name - Level: X - warlord-Tech"
-    const mH=line.match(/^(.+?)\s*-\s*Level:\s*(\d+)(?:\s*-\s*(warlord|trader|freelancer)-Tech)?$/i);
-    if(mH){
-      inModules=false;
-      cur={name:mH[1].trim(),level:parseInt(mH[2]),tech_class:mH[3]?mH[3].toLowerCase():null,
-           parent_name:null,found_in_parent_level:null,description:'',branch:null,modules:[],bonuses:[]};
-      techs.push(cur);
-      i++;continue;
-    }
-
-    if(!cur){i++;continue;}
-
-    // "Gefunden in X Level Y"
-    const mF=line.match(/^Gefunden in (.+?) Level (\d+)$/i);
-    if(mF){cur.parent_name=mF[1].trim();cur.found_in_parent_level=parseInt(mF[2]);inModules=false;i++;continue;}
-
-    // Module section header
-    if(line.startsWith('Folgende Module')){inModules=true;i++;continue;}
-
-    // Bonus line: starts with "* " and has content after
-    if(line.startsWith('* ')&&line.length>2){
-      cur.bonuses.push(line.slice(2).trim());
-      inModules=false;
-      i++;continue;
-    }
-
-    // If we are in the module section, parse module lines
-    if(inModules){
-      // A module line ends with "Level X" — format: "[ModulName] [TechName] Level X"
-      // TechName at end = cur.name (the tech that unlocks this module)
-      // We strip cur.name from the end of the text before "Level X"
-      const parts=line.split(/\s+/);
-      const lastIsNum=parts.length>=2&&!isNaN(parts[parts.length-1]);
-      const secondLastIsLevel=lastIsNum&&parts[parts.length-2].toLowerCase()==='level';
-
-      if(secondLastIsLevel){
-        const lvl=parseInt(parts[parts.length-1]);
-        // Everything before "Level X"
-        let nameRaw=parts.slice(0,parts.length-2).join(' ');
-        // Strip the tech name from the end (it's repeated in the module line)
-        // e.g. "Nemesis Cruiser Seelenverbindung" → remove "Seelenverbindung" → "Nemesis Cruiser"
-        const techNameLower=cur.name.toLowerCase();
-        const nameRawLower=nameRaw.toLowerCase();
-        if(nameRawLower.endsWith(techNameLower)){
-          nameRaw=nameRaw.slice(0,nameRaw.length-cur.name.length).trim();
-        }
-        if(nameRaw) cur.modules.push({name:nameRaw,level:lvl});
-      } else {
-        // Not a module line — leave module mode and fall through
-        inModules=false;
-        // intentionally don't skip — re-process as description below
+    // Skip module/bonus lines silently
+    if(cur&&line.startsWith('Folgende Module')){
+      i++;
+      while(i<lines.length){
+        const ml=lines[i].trim();
+        if(ml==='*'||ml==='Verbessern'||ml==='Suchen'||ml.match(/^.+\s*-\s*Level:\s*\d+/)) break;
+        i++;
       }
-      if(inModules){i++;continue;}
+      continue;
     }
+    if(cur&&line.startsWith('* ')&&line.length>2){i++;continue;} // skip bonus lines
 
-    // Description: anything else that isn't a nav line or tech header
+    // Rassen-Tech: "Name - Level: X - rassenname-Tech"
+    const mH=line.match(/^(.+?)\s*-\s*Level:\s*(\d+)(?:\s*-\s*(.+?)-Tech)?$/i);
+    if(mH){
+      let techClass=null;
+      if(mH[3]){
+        const cl=mH[3].toLowerCase().trim();
+        if(cl==='warlord'||cl==='trader'||cl==='freelancer') techClass=cl;
+        else if(RASSEN.has(cl)) techClass=cl;
+        else techClass=cl; // unknown class still stored
+      }
+      cur={name:mH[1].trim(),level:parseInt(mH[2]),tech_class:techClass,parent_name:null,found_in_parent_level:null,description:'',branch:null};
+      techs.push(cur);i++;continue;
+    }
+    if(!cur){i++;continue;}
+    const mF=line.match(/^Gefunden in (.+?) Level (\d+)$/i);
+    if(mF){cur.parent_name=mF[1].trim();cur.found_in_parent_level=parseInt(mF[2]);i++;continue;}
     if(!line.match(/^(Verbessern|Suchen|\*)$/)&&!line.match(/^.+\s*-\s*Level:/)){
       cur.description+=(cur.description?' ':'')+line;
     }
     i++;
   }
-
-  // Assign branches
-  techs.forEach(t=>{const l=t.name.toLowerCase();if(BRANCHES.includes(l)) t.branch=l;});
+  // Branch assignment
+  techs.forEach(t=>{if(BRANCHES.includes(t.name.toLowerCase())) t.branch=t.name.toLowerCase();});
   techs.forEach(t=>{if(!t.branch&&t.parent_name){const p=techs.find(x=>x.name===t.parent_name);if(p&&p.branch) t.branch=p.branch;}});
-  for(let pass=0;pass<10;pass++) techs.forEach(t=>{if(!t.branch&&t.parent_name){const p=techs.find(x=>x.name===t.parent_name);if(p&&p.branch) t.branch=p.branch;}});
+  for(let pass=0;pass<12;pass++) techs.forEach(t=>{if(!t.branch&&t.parent_name){const p=techs.find(x=>x.name===t.parent_name);if(p&&p.branch) t.branch=p.branch;}});
   return techs;
 }
 
@@ -989,16 +942,14 @@ async function parseAndImport(){
   if(!parsedImport.length){showSt('import-status','Keine Technologien erkannt.','error');return;}
   const existing=await sb('technologies',{select:'name'}).catch(()=>[]);
   const existSet=new Set(existing.map(e=>e.name));
-  const neu=parsedImport.filter(t=>!existSet.has(t.name));
+  const neu=parsedImport.filter(t=>!existSet.has(t.name)&&t.branch);
   let html=`<strong style="color:var(--accent)">${parsedImport.length} erkannt — ${neu.length} neu:</strong><br><br>`;
   parsedImport.forEach(t=>{
     const isNew=!existSet.has(t.name);
-    const cc=t.tech_class?CLASS_COLORS[t.tech_class]:(BRANCH_COLORS[t.branch]||'var(--accent)');
-    html+=`<span style="color:${cc};${!isNew?'opacity:0.35':''}">`;
-    html+=`${t.name}</span> <span style="color:var(--text-dim);font-size:0.7rem">[${t.branch||'?'}${t.tech_class?' · '+t.tech_class:''}${t.parent_name?' ← '+t.parent_name:''}${!isNew?' · vorhanden':''}]`;
-    if(t.modules.length) html+=` 📦${t.modules.length}`;
-    if(t.bonuses.length) html+=` ⚡${t.bonuses.length}`;
-    html+=`</span><br>`;
+    const isRasse=RASSEN.has(t.tech_class);
+    const cc=t.tech_class?(isRasse?'#ffd700':(CLASS_COLORS[t.tech_class]||NODE_COLOR)):NODE_COLOR;
+    html+=`<span style="color:${cc};${!isNew?'opacity:0.35':''};">${t.name}</span>`;
+    html+=` <span style="color:var(--text-dim);font-size:0.7rem;">[${t.branch||'⚠ kein Zweig'}${t.tech_class?' · '+t.tech_class:''}${t.parent_name?' ← '+t.parent_name:''}${!isNew?' · bereits vorhanden':''}]</span><br>`;
   });
   document.getElementById('preview-content').innerHTML=html;
   document.getElementById('import-preview').style.display='block';
@@ -1008,8 +959,7 @@ async function parseAndImport(){
 
 async function confirmImport(){
   if(!parsedImport) return;
-  showSt('import-status','Speichere…','');
-  document.getElementById('import-status').classList.add('show');
+  showSt('import-status','Speichere…',''); document.getElementById('import-status').classList.add('show');
   try{
     const existing=await sb('technologies',{select:'name'});
     const existSet=new Set(existing.map(e=>e.name));
@@ -1017,8 +967,6 @@ async function confirmImport(){
     for(const t of parsedImport){
       if(existSet.has(t.name)||!t.branch){skipped++;continue;}
       await sb('technologies',{method:'POST',body:{name:t.name,branch:t.branch,parent_name:t.parent_name||null,found_in_parent_level:t.found_in_parent_level||null,description:t.description||null,tech_class:t.tech_class||null}});
-      for(const m of t.modules) await sb('tech_modules',{method:'POST',body:{tech_name:t.name,module_name:m.name,unlock_level:m.level}});
-      for(const b of t.bonuses) await sb('tech_bonuses',{method:'POST',body:{tech_name:t.name,bonus_text:b}});
       existSet.add(t.name);added++;
     }
     showSt('import-status',`✓ ${added} hinzugefügt, ${skipped} übersprungen.`,'success');
@@ -1027,29 +975,35 @@ async function confirmImport(){
     parsedImport=null;
   }catch(e){showSt('import-status','✗ Fehler: '+e.message,'error');}
 }
-
 function cancelImport(){document.getElementById('import-preview').style.display='none';parsedImport=null;}
 
-// ── MANUAL ──
+// ── MANUAL ADD TECH ──
 async function manualAdd(){
   const name=document.getElementById('m-name').value.trim();
   const branch=document.getElementById('m-branch').value;
   if(!name||!branch){showSt('manual-status','Name und Zweig sind Pflichtfelder.','error');return;}
   try{
-    await sb('technologies',{method:'POST',body:{name,branch,parent_name:document.getElementById('m-parent').value.trim()||null,found_in_parent_level:document.getElementById('m-parent-level').value?parseInt(document.getElementById('m-parent-level').value):null,description:document.getElementById('m-desc').value.trim()||null,tech_class:document.getElementById('m-class').value||null}});
-    const modsRaw=document.getElementById('m-modules').value.trim();
-    if(modsRaw) for(const l of modsRaw.split('\n').filter(x=>x.trim())){const m=l.match(/^(.+?)\s+Level\s+(\d+)$/i);if(m) await sb('tech_modules',{method:'POST',body:{tech_name:name,module_name:m[1].trim(),unlock_level:parseInt(m[2])}});}
-    const bonRaw=document.getElementById('m-bonuses').value.trim();
-    if(bonRaw) for(const l of bonRaw.split('\n').filter(x=>x.trim())) await sb('tech_bonuses',{method:'POST',body:{tech_name:name,bonus_text:l.trim()}});
+    await sb('technologies',{method:'POST',body:{
+      name,branch,
+      parent_name:document.getElementById('m-parent').value.trim()||null,
+      found_in_parent_level:document.getElementById('m-parent-level').value?parseInt(document.getElementById('m-parent-level').value):null,
+      description:document.getElementById('m-desc').value.trim()||null,
+      tech_class:document.getElementById('m-class').value||null
+    }});
     showSt('manual-status',`✓ "${name}" hinzugefügt!`,'success');
-    ['m-name','m-parent','m-parent-level','m-desc','m-modules','m-bonuses'].forEach(id=>document.getElementById(id).value='');
-    document.getElementById('m-branch').value='';document.getElementById('m-class').value='';
+    ['m-name','m-parent','m-parent-level','m-desc'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('m-branch').value=''; document.getElementById('m-class').value='';
   }catch(e){showSt('manual-status','✗ Fehler: '+e.message,'error');}
 }
 
+// ── HELPERS ──
 function showSt(id,msg,type){const el=document.getElementById(id);el.textContent=msg;el.className='status-msg show'+(type?' '+type:'');}
 function showSetupModal(){document.getElementById('setup-modal').classList.add('show');}
-document.getElementById('setup-modal').addEventListener('click',e=>{if(e.target===document.getElementById('setup-modal')) document.getElementById('setup-modal').classList.remove('show');});
+
+// Close modals on backdrop click
+['setup-modal','edit-modal'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',e=>{if(e.target===document.getElementById(id)) document.getElementById(id).classList.remove('show');});
+});
 
 loadTree();
 </script>
