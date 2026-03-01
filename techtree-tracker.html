@@ -134,14 +134,10 @@
   }
   .pill:hover { opacity:0.8; }
   .pill.active { background:rgba(255,255,255,0.07); }
-  .pill[data-b="all"]        { border-color:var(--accent);    color:var(--accent); }
-  .pill[data-b="psychologie"]{ border-color:var(--psych);     color:var(--psych); }
-  .pill[data-b="informatik"] { border-color:var(--info);      color:var(--info); }
-  .pill[data-b="politik"]    { border-color:var(--politik);   color:var(--politik); }
-  .pill[data-b="naturkunde"] { border-color:var(--natur);     color:var(--natur); }
-  .pill[data-b="historik"]   { border-color:var(--historik);  color:var(--historik); }
-  .pill[data-b="mathematik"] { border-color:var(--mathe);     color:var(--mathe); }
-  .pill[data-b="technik"]    { border-color:var(--technik);   color:var(--technik); }
+  /* All pills same neutral color — active one pops */
+  .pill { border-color:var(--border); color:var(--text-dim); }
+  .pill.active { border-color:var(--accent); color:var(--accent); background:rgba(0,212,255,0.1); box-shadow:0 0 10px rgba(0,212,255,0.15); }
+  .pill:hover  { border-color:var(--accent2); color:var(--text); }
 
   .search-wrap { position:relative; }
   .search-wrap input {
@@ -402,6 +398,12 @@
 </style>
 </head>
 <body>
+<script>
+  // Redirect to hub if not authenticated this session
+  if (sessionStorage.getItem('alliance_auth') !== '1') {
+    window.location.href = 'index.html';
+  }
+</script>
 
 <header>
   <div style="display:flex;align-items:center;gap:16px;">
@@ -902,34 +904,76 @@ function buildNode(node, branch, branchColor, ancestorIsLast, matchSet) {
 function parseTechText(text){
   const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
   const techs=[];let cur=null;let i=0;
+  let inModules=false; // track whether we just saw "Folgende Module"
+
   while(i<lines.length){
     const line=lines[i];
+
+    // Skip navigation lines (standalone)
     if(line==='Verbessern'||line==='Suchen'||line==='*'){i++;continue;}
+
+    // Tech header: "Name - Level: X" or "Name - Level: X - warlord-Tech"
     const mH=line.match(/^(.+?)\s*-\s*Level:\s*(\d+)(?:\s*-\s*(warlord|trader|freelancer)-Tech)?$/i);
-    if(mH){cur={name:mH[1].trim(),level:parseInt(mH[2]),tech_class:mH[3]?mH[3].toLowerCase():null,parent_name:null,found_in_parent_level:null,description:'',branch:null,modules:[],bonuses:[]};techs.push(cur);i++;continue;}
-    if(!cur){i++;continue;}
-    const mF=line.match(/^Gefunden in (.+?) Level (\d+)$/i);
-    if(mF){cur.parent_name=mF[1].trim();cur.found_in_parent_level=parseInt(mF[2]);i++;continue;}
-    if(line.startsWith('Folgende Module')){
-      i++;
-      while(i<lines.length){
-        const ml=lines[i].trim();
-        if(ml==='*'||ml==='Verbessern'||ml==='Suchen'||ml.match(/^.+\s*-\s*Level:\s*\d+/)) break;
-        if(ml.startsWith('Folgende')){i++;continue;}
-        const parts=ml.split(/\s+/);
-        if(parts.length>=2&&!isNaN(parts[parts.length-1])&&parts[parts.length-2].toLowerCase()==='level'){
-          cur.modules.push({name:parts.slice(0,parts.length-2).join(' '),level:parseInt(parts[parts.length-1])});
-        }
-        i++;
-      }
-      continue;
+    if(mH){
+      inModules=false;
+      cur={name:mH[1].trim(),level:parseInt(mH[2]),tech_class:mH[3]?mH[3].toLowerCase():null,
+           parent_name:null,found_in_parent_level:null,description:'',branch:null,modules:[],bonuses:[]};
+      techs.push(cur);
+      i++;continue;
     }
-    if(line.startsWith('* ')&&line.length>2){cur.bonuses.push(line.slice(2).trim());i++;continue;}
+
+    if(!cur){i++;continue;}
+
+    // "Gefunden in X Level Y"
+    const mF=line.match(/^Gefunden in (.+?) Level (\d+)$/i);
+    if(mF){cur.parent_name=mF[1].trim();cur.found_in_parent_level=parseInt(mF[2]);inModules=false;i++;continue;}
+
+    // Module section header
+    if(line.startsWith('Folgende Module')){inModules=true;i++;continue;}
+
+    // Bonus line: starts with "* " and has content after
+    if(line.startsWith('* ')&&line.length>2){
+      cur.bonuses.push(line.slice(2).trim());
+      inModules=false;
+      i++;continue;
+    }
+
+    // If we are in the module section, parse module lines
+    if(inModules){
+      // A module line ends with "Level X" — format: "[ModulName] [TechName] Level X"
+      // TechName at end = cur.name (the tech that unlocks this module)
+      // We strip cur.name from the end of the text before "Level X"
+      const parts=line.split(/\s+/);
+      const lastIsNum=parts.length>=2&&!isNaN(parts[parts.length-1]);
+      const secondLastIsLevel=lastIsNum&&parts[parts.length-2].toLowerCase()==='level';
+
+      if(secondLastIsLevel){
+        const lvl=parseInt(parts[parts.length-1]);
+        // Everything before "Level X"
+        let nameRaw=parts.slice(0,parts.length-2).join(' ');
+        // Strip the tech name from the end (it's repeated in the module line)
+        // e.g. "Nemesis Cruiser Seelenverbindung" → remove "Seelenverbindung" → "Nemesis Cruiser"
+        const techNameLower=cur.name.toLowerCase();
+        const nameRawLower=nameRaw.toLowerCase();
+        if(nameRawLower.endsWith(techNameLower)){
+          nameRaw=nameRaw.slice(0,nameRaw.length-cur.name.length).trim();
+        }
+        if(nameRaw) cur.modules.push({name:nameRaw,level:lvl});
+      } else {
+        // Not a module line — leave module mode and fall through
+        inModules=false;
+        // intentionally don't skip — re-process as description below
+      }
+      if(inModules){i++;continue;}
+    }
+
+    // Description: anything else that isn't a nav line or tech header
     if(!line.match(/^(Verbessern|Suchen|\*)$/)&&!line.match(/^.+\s*-\s*Level:/)){
       cur.description+=(cur.description?' ':'')+line;
     }
     i++;
   }
+
   // Assign branches
   techs.forEach(t=>{const l=t.name.toLowerCase();if(BRANCHES.includes(l)) t.branch=l;});
   techs.forEach(t=>{if(!t.branch&&t.parent_name){const p=techs.find(x=>x.name===t.parent_name);if(p&&p.branch) t.branch=p.branch;}});
